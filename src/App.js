@@ -2,36 +2,35 @@ import React, { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [result, setResult] = useState("");
+  const [current, setCurrent] = useState("");
   const [previous, setPrevious] = useState("");
   const [operation, setOperation] = useState("");
 
   const handleClick = (e) => {
     const value = e.target.getAttribute("name");
-    if (value === "." && result.includes(".")) return;
-    setResult(result + value);
+    setCurrent(current + value);
   };
 
   const backspace = () => {
-    setResult(result.slice(0, -1));
+    setCurrent(current.slice(0, -1));
   };
 
   const operationHandle = (e) => {
-    if (result === "") return;
+    if (current === "") return;
     if (previous !== "") {
       let value = compute();
       setPrevious(value);
     } else {
-      setPrevious(result);
+      setPrevious(current);
     }
-    setResult("");
+    setCurrent("");
     setOperation(e.target.getAttribute("name"));
   };
 
   const calculate = () => {
     let value = compute();
     if (value === undefined || value === null) return;
-    setResult(value);
+    setCurrent(value);
     setPrevious("");
     setOperation("");
   };
@@ -39,38 +38,41 @@ function App() {
   const compute = () => {
     let result;
     let previousNumber = parseFloat(previous);
-    let resultNumber = parseFloat(result);
-    if (isNaN(previousNumber) || isNaN(resultNumber)) return;
+    let currentNumber = parseFloat(current);
+
+    // console.log("previous:", previousNumber);
+    // console.log("current:", currentNumber);
+    // console.log("operation:", operation);
+
     switch (operation) {
       case "*":
-        result = previousNumber * resultNumber;
+        result = previousNumber * currentNumber;
         break;
       case "/":
-        result = previousNumber / resultNumber;
+        result = previousNumber / currentNumber;
         break;
       case "%":
-        result = previousNumber % resultNumber;
+        result = previousNumber % currentNumber;
         break;
       case "-":
-        result = previousNumber - resultNumber;
+        result = previousNumber - currentNumber;
         break;
       case "+":
-        result = previousNumber + resultNumber;
+        result = previousNumber + currentNumber;
         break;
       default:
         return;
     }
+    // console.log("result:", result);
     return result;
   };
 
   return (
     <div className="container">
       <form className="left">
-        <input type="text" value={result} />
-        {result}
+        <input type="text" value={`${previous} ${operation}`} />
         <div>
-          {previous} {operation}
-          <input className="bottom" type="text" value={result} />
+          <input className="bottom" type="text" value={current} />
         </div>
       </form>
       <div className="right">
