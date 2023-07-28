@@ -13,26 +13,26 @@ body {
 }
 
 .container {
+  display: flex;
   top: 10%;
   left: 40%;
   position: absolute;
-  transition: translate(-50%, -50%);
-  margin: 0 auto;
+  transition: translate(-40%, -40%);
+  margin: 20px;
   text-align: center;
-  width: 361px;
+  width: 380px;
   height: 550px;
   background: #f3e4ff;
-  display: flex;
 }
 
 .container .left {
   display: grid;
+  margin-bottom: 20px;
 }
 
 .container .left input {
   width: 142px;
   height: 415px;
-  flex-shrink: 0;
   border-radius: 17px;
   border: 1px solid #3600ce;
   background: #dad3ff;
@@ -46,7 +46,6 @@ body {
   border-radius: 17px;
   border: none;
   background: #3600ce;
-  margin-top: 2px;
   color: #fff;
 }
 
@@ -63,7 +62,7 @@ input[type="text"] {
 .keypad {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(30px, auto);
+  grid-auto-rows: minmax(50px, auto);
   color: #000;
   font-family: Poppins;
   font-size: 20px;
@@ -72,13 +71,13 @@ input[type="text"] {
   line-height: normal;
 }
 
-.container h1 {
+h1 {
   color: #000;
   font-family: Poppins;
-  font-size: 25.714px;
-  font-style: normal;
+  font-size: 25px;
   font-weight: 700;
-  line-height: 28.929px; /* 112.5% */
+  line-height: 28px;
+  margin-right: 5px;
 }
 
 #backspace,
@@ -94,7 +93,8 @@ input[type="text"] {
 button {
   width: 52px;
   height: 56px;
-  margin: 5px;
+  margin: 8px;
+  font-weight: 800;
   cursor: pointer;
   border-radius: 20px;
   border: 1px solid #3600ce;
