@@ -40,6 +40,24 @@ body {
   padding-top: 3px;
 }
 
+#showCalc {
+  width: 142px;
+  height: 415px;
+  border-radius: 17px;
+  border: 1px solid #3600ce;
+  background: #dad3ff;
+  margin: 10px;
+  padding-top: 3px;
+  font-weight: 700;
+  font-family: Poppins;
+  font-size: 25.714px;
+  text-align: right;
+}
+
+span {
+  color: #3600ce;
+}
+
 .container .left .bottom {
   width: 142px;
   height: 54px;
