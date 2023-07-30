@@ -13,15 +13,45 @@ function App() {
     setResult(result.concat(e.target.name));
   };
 
+  function getCommaFormatted(expression) {
+    const formattedExpression1 = expression.replace(
+      /<span>([+*/%-])<\/span>?(\d{1,3}(?=(\d{3})+(?!\d)))/g,
+      (match, operator, number) => {
+        const formattedNumber = Number(number).toLocaleString("en-IN");
+        return `<span>${operator}</span>${formattedNumber}`;
+      }
+    );
+
+    return formattedExpression1;
+  }
+  function formatExpression(expression) {
+    const formattedExpression = expression
+      .replace(/[-+*/%]/g, (operator) => `\n<span>${operator}</span>`)
+      .replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, (number) =>
+        Number(number).toLocaleString("en-IN")
+      );
+
+    return formattedExpression;
+  }
   const equal = () => {
     setResult(eval(result).toString());
-    setTotal(result);
+
+    setTotal(formatExpression(result));
+    console.log(total);
   };
 
   return (
     <div className="container">
       <form className="left">
-        <input type="text" value={total} />
+        <div id="showCalc">
+          {total.split("\n").map((line, index) => (
+            <div
+              key={index}
+              dangerouslySetInnerHTML={{ __html: getCommaFormatted(line) }}
+            ></div>
+          ))}
+        </div>
+        {/* <input type="text" value={total} />  */}
         <input
           className="bottom"
           type="text"
@@ -40,7 +70,7 @@ function App() {
           </button>
         </div>
         <div className="keypad">
-          <button name="X" onClick={calculate}>
+          <button name="*" onClick={calculate}>
             X
           </button>
           <button name="/" onClick={calculate}>
