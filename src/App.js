@@ -5,39 +5,35 @@ function App() {
   const [result, setResult] = useState("");
   const [total, setTotal] = useState("");
 
-  const back = () => {
-    setResult(result.slice(0, -1));
+  const reset = () => {
+    setResult("");
   };
 
   const calculate = (e) => {
-    setResult(result.concat(e.target.name));
+    setResult(result.concat(e.target.value));
   };
 
   function getCommaFormatted(expression) {
     const formattedExpression1 = expression.replace(
       /<span>([+*/%-])<\/span>?(\d{1,3}(?=(\d{3})+(?!\d)))/g,
-      (match, operator, number) => {
-        const formattedNumber = Number(number).toLocaleString("en-IN");
-        return `<span>${operator}</span>${formattedNumber}`;
+      (operator, number) => {
+        const formattedNumber = Number(number);
+        return `${operator} ${formattedNumber}`;
       }
     );
-
     return formattedExpression1;
   }
+
   function formatExpression(expression) {
     const formattedExpression = expression
-      .replace(/[-+*/%]/g, (operator) => `\n<span>${operator}</span>`)
-      .replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, (number) =>
-        Number(number).toLocaleString("en-IN")
-      );
-
+      .replace(/[-+*/%]/g, (operator) => `\n${operator}`)
+      .replace(/\d{1,3}(?=(\d{3})+(?!\d))/g, (number) => Number(number));
     return formattedExpression;
   }
+
   const equal = () => {
     setResult(eval(result).toString());
-
     setTotal(formatExpression(result));
-    console.log(total);
   };
 
   return (
@@ -51,7 +47,11 @@ function App() {
             ></div>
           ))}
         </div>
-        {/* <input type="text" value={total} />  */}
+        {/* <input
+          type="text"
+          value={total}
+          onChange={(e) => setResult(e.target.value)}
+        /> */}
         <input
           className="bottom"
           type="text"
@@ -62,7 +62,7 @@ function App() {
       <div className="right">
         <h1>Vertical Calculator</h1>
         <div>
-          <button onClick={back} id="backspace">
+          <button onClick={reset} id="backspace">
             Clear
           </button>
           <button onClick={equal} id="result">
@@ -70,49 +70,49 @@ function App() {
           </button>
         </div>
         <div className="keypad">
-          <button name="*" onClick={calculate}>
+          <button value="*" onClick={calculate}>
             X
           </button>
-          <button name="/" onClick={calculate}>
+          <button value="/" onClick={calculate}>
             /
           </button>
-          <button name="%" onClick={calculate}>
+          <button value="%" onClick={calculate}>
             %
           </button>
-          <button name="1" onClick={calculate}>
+          <button value="1" onClick={calculate}>
             1
           </button>
-          <button name="2" onClick={calculate}>
+          <button value="2" onClick={calculate}>
             2
           </button>
-          <button name="3" onClick={calculate}>
+          <button value="3" onClick={calculate}>
             3
           </button>
-          <button name="4" onClick={calculate}>
+          <button value="4" onClick={calculate}>
             4
           </button>
-          <button name="5" onClick={calculate}>
+          <button value="5" onClick={calculate}>
             5
           </button>
-          <button name="6" onClick={calculate}>
+          <button value="6" onClick={calculate}>
             6
           </button>
-          <button name="7" onClick={calculate}>
+          <button value="7" onClick={calculate}>
             7
           </button>
-          <button name="8" onClick={calculate}>
+          <button value="8" onClick={calculate}>
             8
           </button>
-          <button name="9" onClick={calculate}>
-            9{calculate}
+          <button value="9" onClick={calculate}>
+            9
           </button>
-          <button name="-" onClick={calculate}>
+          <button value="-" onClick={calculate}>
             -
           </button>
-          <button name="0" onClick={calculate}>
+          <button value="0" onClick={calculate}>
             0
           </button>
-          <button name="+" onClick={calculate}>
+          <button value="+" onClick={calculate}>
             +
           </button>
         </div>

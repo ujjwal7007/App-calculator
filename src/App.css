@@ -51,6 +51,9 @@ body {
   font-weight: 700;
   font-family: Poppins;
   font-size: 25.714px;
+}
+
+#showCalc div {
   text-align: right;
 }
 
